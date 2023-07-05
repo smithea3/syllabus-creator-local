@@ -1,0 +1,18 @@
+{
+    "0626512": {
+        "instructor-name": "Ethan A. Smith, MA, MEd",
+        "instructor-email-address": "<a href='mailto:esmith3@mitchellcc.edu'>esmith3@mitchellcc.edu<a>",
+        "instructor-office-phone-number": "704-878-3270",
+        "instructor-office-location": "Statesville Main Campus, Vocational Building, VB-212A",
+        "instructor-response-time": "I will respond within 36-48 hours of reading your email, except during holidays.",
+        "instructor-student-support-hours": "For the 2023SU Semester my Student Support hours are by appointment only."
+    },
+    "example-instructor": {
+        "instructor-name": "Emmy Noether, Ph.D.",
+        "instructor-email-address": "<a href='mailto:admin@email.com'>enoether@uerlangen.edu<a>",
+        "instructor-office-phone-number": "555-555-5309",
+        "instructor-office-location": "University of Erlangen",
+        "instructor-response-time": "I will respond within 36-48 hours of reading your email, except during holidays.",
+        "instructor-student-support-hours": "For the forseeable future, my Student Support hours are by appointment only."
+    }
+}

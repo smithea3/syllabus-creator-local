@@ -1,0 +1,68 @@
+{
+   "2023SU":{
+      "startDate": "2023-06-01",
+      "endDate": "2023-07-28",
+      "dates": {
+         "2023-06-01":{
+            "event":"First Day of Class / Last day to receive 75% refund for first 4-week session",
+            "hasClass":true,
+            "collegeOpen":true
+         },
+         "2023-06-06":{
+            "event":"Last day to receive 75% refund for 8-week session",
+            "hasClass":true,
+            "collegeOpen":true
+         },
+         "2023-06-21":{
+            "event":"Last day to withdraw from first 4-week session to ensure a grade of “W”",
+            "hasClass":true,
+            "collegeOpen":true
+         },
+         "2023-06-28":{
+            "event":"First 4-week session ends",
+            "hasClass":true,
+            "collegeOpen":true
+         },
+         "2023-07-03":{
+            "event":"Independence Day Holiday",
+            "hasClass":false,
+            "collegeOpen":false
+         },
+         "2023-07-04":{
+            "event":"Independence Day Holiday",
+            "hasClass":false,
+            "collegeOpen":false
+         },
+         "2023-07-05":{
+            "event":"Second 4-week session begins / Last day to receive 75% refund for second 4-week session",
+            "hasClass":true,
+            "collegeOpen":true
+         },
+         "2023-07-11":{
+            "event":"Last day to withdraw from 10-week session to ensure a grade of “W”",
+            "hasClass":true,
+            "collegeOpen":true
+         },
+         "2023-07-14":{
+            "event":"Last day to withdraw from 8-week session to ensure a grade of “W”",
+            "hasClass":true,
+            "collegeOpen":true
+         },
+         "2023-07-24":{
+            "event":"Last day to withdraw from second 4-week session to ensure a grade of “W”",
+            "hasClass":true,
+            "collegeOpen":true
+         },
+         "2023-07-28":{
+            "event":"10-week and 8-week sessions ends",
+            "hasClass":true,
+            "collegeOpen":true
+         },
+         "2023-07-31":{
+            "event":"Second 4-week session ends / All grades due by 3 p.m.",
+            "hasClass":true,
+            "collegeOpen":true
+         }
+      }
+   }
+}

@@ -1,0 +1,57 @@
+{
+    "templateCollege": {
+        "college-name": "Template College",
+        "policies": {
+            "lms": {
+                "title": "Learning Management System",
+                "content": "<p>This college uses a learning management system.</p>"
+            },
+            "technology-requirements": {
+                "title": "Technology Requirements and Resources",
+                "content": "<p>This college uses technology.</p>"
+            }
+        }
+    },
+    "mitchellcc": {
+        "college-name": "Mitchell Community College",
+        "policies": {
+            "lms": {
+                "title": "Learning Management Systems (LMS)",
+                "content": "<p>All curriculum courses have a space on Mitchell Community College’s learning management system (LMS). The College’s LMS is Moodle, which is hosted by OpenLMS. Moodle is the college-wide adopted delivery portal for online course content. The College’s Moodle site can be accessed from the <a href='https://mitchellcc.edu/my-mitchell>My Mitchell</a> page on the Mitchell Community College website or at <a href='https://mycourses.mitchellcc.edu'>https://mycourses.mitchellcc.edu</a> by direct link.</p>"
+            },
+            "recommendations-for-success": {
+                "title": "Recommendations for Success",
+                "content": "<p>The definition of success can mean something different depending on the course. If you show up and engage with the material from the course, I will work with you to guide you to the goals and kinds of success you are wanting to achieve.</p><p>Some prior knowledge of basic mathematics and number sense can help to increase your success.</p><p>One of the main indicators of success is class attendance and participation.</p>"
+            },
+            "teaching-and-learning-strategies": {
+                "title": "Teaching and Learning Strategies",
+                "content": "<p>Mitchell uses Contextual Teaching and Learning (CTL) to enhance student learning through activities that connect academic concepts to relevant life experiences.</p>"
+            },
+            "technology-requirements": {
+                "title": "Technology Requirements and Resources",
+                "content": "<p>For information on Technology Requirements, visit the Mitchell Community College <a href='https://mitchellcc.edu/distance-learning-faqs'>Technology Requirements and Expectations</a> webpage (opens in a new window).</p>"
+            },
+            "attendance-policy": {
+                "title": "Attendance Policy",
+                "content": "<p>Mitchell Community College is an attendance taking institution. Instructors in all curriculum courses are required to report student attendance. Attendance begins on the first scheduled day of a course, even for students who register late. Mitchell Community College recognizes the connection between student attendance and student retention, achievement, and success. Students are expected to attend  all class sessions, clinical experiences, and laboratory periods for which they are enrolled. Absence from any of these learning experiences, regardless of cause, reduces the opportunity for learning and may adversely affect a student’s achievement.</p><p>Students are responsible for class attendance and for any class work missed during an absence. The instructor’s policy on make-up work must be clearly stated in the class syllabus. Obtaining and making up missed work is the student’s responsibility.</p><p>When a student fails to comply with the attendance policy of the class or fails to attend for two consecutive weeks (14 calendar days), the instructor should process an administrative withdrawal for the student resulting in a grade of W (See Withdrawal Policy below).</p>"
+            },
+            "withdrawal-policy": {
+                "title": "Withdrawal Policy",
+                "content": "<p>The last day a student can withdraw from a course or from all courses with a grade of “W” is at the 75 percent point of the course. The exact date is published on the <a href='https://mitchellcc.edu/academic-resources-0'>Academic Calendar</a> (link opens in new window). After the 75 percent point of the course, the student can no longer initiate a withdrawal and will receive the grade earned in the course at the end of the term. Students can locate withdrawal information by visiting the Office of Student Records webpage. If the student needs to drop a class, they can click on the <a href='https://mitchellcc.edu/drop-and-add'>Drop/Add Procedure</a> menu link. If they need to withdraw from all of their classes they can click on the <a href='https://mitchellcc.edu/withdrawal-procedure'> menu link (links opens in new window)</a>.</p>"
+            },
+            "no-show-date": {
+                "title": "No Show Date/Census Date Policy",
+                "content": "<p>In order to remain enrolled in a course, a student must attend class on or before the class census date. If a student does not attend class by the census date, they will be reported as a <strong>“no show” (NS)</strong> by the instructor and will be automatically withdrawn from the course. To ensure students attend class and avoid being marked as a “no show”, students need to:</p><ul><li>For traditional 100% seated classes, a student must be physically present in class on or before the class census date.</li><li>For blended or hybrid classes, a student must either complete the Mandatory Course Enrollment Activity (MCEA) in the LMS or physically be present in class on or before the class census date.</li><li>For 100% online classes, a student must complete the MCEA in the LMS on or before the class census date.</li></ul><p>If a student does not meet the census date requirement, the student must be reported as a no-show for the class. Students reported as a “no-show” are withdrawn from the class. The no show date and the census date are the same date for a course and can be found on the course syllabus as well as on the <a href='https://mitchellcc.edu/office-student-records'>Office of Student Records webpage</a> (link opens in a new window). For blended, hybrid, and online courses this date is also noted in the MCEA.</p>"
+            },
+            "inclement-weather": {
+                "title": "Mitchell Community College Inclement Weather Policy",
+                "content": "<p>In the event of adverse weather, the College will announce delays, cancellation of classes, or the closing of the college on local television and radio stations and on the College website on the <a href='https://mitchellcc.edu/news/inclement-weather-information'>Inclement Weather Information webpage</a>.</p>"
+            },
+            "academic-dishonesty": {
+                "title": "Academic Dishonesty",
+                "content": "<p>Mitchell Community College makes every reasonable effort to maintain integrity in all academic programs. To compromise integrity through acts of academic dishonesty jeopardizes the quality of instruction and the caliber of education we aim to provide our students. Any form of academic dishonesty, by any student at the College, is unacceptable and will result in disciplinary action.</p><p><strong>Definitions and Examples of Academic Dishonesty include, but may not be limited to:</strong></p><p><strong>Cheating:</strong> Intentionally and/or knowingly using unauthorized materials, information, or study aids in any academic exercise or matter.</p><p><strong>Fabrication:</strong>: Intentionally and/or knowingly falsifying or inventing information or citations in an academic exercise or matter.</p><p><strong>Facilitating Academic Dishonesty: </strong>Intentionally and/or knowingly helping or attempting to help another to commit an act of cheating, plagiarism, or fabrication.</p><p><strong>Self-Plagiarism: </strong>The use of one&#39;s own previous work in another context without citing that it was used previously. The writer should let the reader know that this was not the first use of the material.</p>"
+            }
+        }
+
+    }
+}
