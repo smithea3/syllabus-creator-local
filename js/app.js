@@ -14,7 +14,7 @@ function fetchContent() {
     fetch('../json/example.json')
         .then(response => response.json())
         .then(response => {
-            console.log(response["0626512"]["instructor-name"]);
+            console.log(response["instructor-name"]);
             tinymce.activeEditor.setContent(JSON.stringify(response));
         })
         .catch(error => {
