@@ -5,19 +5,19 @@ import instructor_information from '../json/instructor_information.json' assert 
 import section_info from '../json/section_info.json' assert { type: 'json' };
 
 fetch("./json/courses.json")
-//    .then(response => response.json())
+    .then(courses => courses.json())
 
 fetch("./json/college_policies.json")
-    .then(response => response.json())
+    .then(college_policies => college_policies.json())
 
 fetch("./json/important_dates.json")
-//    .then(response => response.json())
+    .then(important_dates => important_dates.json())
 
 fetch("./json/instructor_information.json")
-//    .then(response => response.json())
+    .then(instructor_information => instructor_information.json())
 
 fetch("./json/section_info.json")
-//    .then(response => response.json())
+    .then(section_info => section_info.json())
 
 //  A function to create a UL/OL from a JSON array
 function convertArrayToHtmlList (inputList, listType) {
@@ -106,17 +106,17 @@ function getCourseInformation(urlParams) {
     }
 }
 
-function getInstructorInformation(urlParams) {
-    if (urlParams.hasOwnProperty("instructor")) {
-        document.getElementById("instructor-name").innerHTML += instructor_information[urlParams.instructor]["instructor-name"]
-        document.getElementById("instructor-email-address").innerHTML += instructor_information[urlParams.instructor]["instructor-email-address"]
-        document.getElementById("instructor-response-time").innerHTML += instructor_information[urlParams.instructor]["instructor-response-time"]
-        document.getElementById("instructor-office-phone-number").innerHTML += instructor_information[urlParams.instructor]["instructor-office-phone-number"]
-        document.getElementById("instructor-office-location").innerHTML += instructor_information[urlParams.instructor]["instructor-office-location"]
-        document.getElementById("instructor-student-support-hours").innerHTML += instructor_information[urlParams.instructor]["instructor-student-support-hours"]
+// Function to fill in the instructor information from instructor_information.json
+function getInstructorInformation(instructor) {
+    for (var info in instructor) {
+        document.getElementById(String(info)).innerHTML += instructor[String(info)]
     }
 }
 
 var urlParams = getURLParameters(window.location.search)
 getCourseInformation(urlParams)
-getInstructorInformation(urlParams)
+
+//getInstructorInformation(urlParams)
+getInstructorInformation(instructor_information["example-instructor"])
+
+// Used for debugging

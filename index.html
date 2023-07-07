@@ -1,79 +1,100 @@
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta http-equiv="Cache-control" content="no-cache">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <meta http-equiv="Cache-control" content="no-cache" />
     <title>Syallbus Page</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <script src="https://cdn.tiny.cloud/1/29jw3sihy9nikfq1o47ohtcnkii9qk6iztp5ltfywn4e8zfy/tinymce/6/tinymce.min.js"
-        referrerpolicy="origin"></script>
-    <script type="application/javascript" src="./js/app.js"></script>
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+  </head>
 
-<body>
+  <body>
     <div class="container" id="main-container">
-        <header style="padding-top: 15px;">
-            <h1 style="text-align: center;" id="college-name">College Name</h1>
-            <h1 style="text-align: center;" id="course-title-catalog">Course Title (Catalog Title)</h1>
-            <h1 style="text-align: center;" id="course-id"><span id="subject">AAA</span>-<span
-                    id="course">###</span>-<span id="section">AAAA</span> <span id="semester">(YYYYAA)</span></h1>
-        </header>
-        <div class="row">
-            <div class="col">
-                <p><strong>Credit Hours:</strong> <span id="credit-hours"></span></p>
-            </div>
-            <div class="col">
-                <p><strong>Class Hours:</strong> <span id="class-hours"></span></p>
-            </div>
-            <div class="col">
-                <p><strong>Lab Hours:</strong> <span id="lab-hours"></span></p>
-            </div>
+      <header style="padding-top: 15px"></header>
+      <h1 style="text-align: center" id="college-name">College Name</h1>
+      <h1 style="text-align: center" id="course-title-catalog">
+        Course Title (Catalog Title)
+      </h1>
+      <h1 style="text-align: center" id="course-id">
+        <span id="subject">AAA</span>-<span id="course">###</span>-<span
+          id="section"
+          >AAAA</span
+        >
+        <span id="semester">(YYYYAA)</span>
+      </h1>
+      <div class="row">
+        <div class="col">
+          <p><strong>Credit Hours:</strong> <span id="credit-hours"></span></p>
         </div>
-        <h1>Course Information</h1>
-        <p id="location"><strong>Class Location:</strong>&nbsp;</p>
-        <p id="meeting-time-self-service"><strong>Meeting Day(s)/Time(s):</strong>&nbsp;</p>
-        <p id="prerequisites"><strong>Prerequisites:</strong>&nbsp;</p>
-        <p id="census-date"><strong>No&nbsp;Show Date (Census Date):</strong>&nbsp;</p>
-        <h1>Faculty Information</h1>
-        <p id="instructor-name"><strong>Instructor:&nbsp;</strong></p>
-        <p id="instructor-email-address"><strong>Email Address:&nbsp;</strong></p>
-        <p id="instructor-response-time"><strong>Response Time:&nbsp;</strong></p>
-        <p id="instructor-office-phone-number"><strong>Office Phone Number:&nbsp;</strong></p>
-        <p id="instructor-office-location"><strong>Office Location:&nbsp;</strong></p>
-        <p id="instructor-student-support-hours"><strong>Available for Student Support:&nbsp;</strong></p>
-        <h1>Catalog Description</h1>
-        <p id="catalog-description">Catalog Description</p>
-        <h1>Learning Outcomes (SLOs)</h1>
-        <p>Upon successfully completing this course, students will be able to demonstrate the following outcomes.</p>
-        <p id="slos">Enter your SLOs here.</p>
-        <h1>Required Textbook and Other Materials</h1>
-        <h2>Textbook</h2>
-        <p id="textbook-information">Enter your textbook information here.</p>
-        <h1>Grading</h1>
-        <h2>Grading Scale</h2>
-        <p id="grading-scale">Enter your Grading Scale here. Many institutions are on a 10-point scale.</p>
-        <h2>Grading Breakdown</h2>
-        <p id="grading-breakdown">Enter your grading breakdown here. This is typically either points or a weighted total
-            based on percentages.</p>
-        <h2>Assignment Descriptions</h2>
-        <p>A brief description of assignments is provided below.&nbsp;Detailed information and requirements will be
-            provided in class and/or online within the Learning Management System (LMS).</p>
-        <p id="assignment-descriptions">Enter a description of each assignment type in your course.</p>
-
-        <textarea id="editor"></textarea>
-        <br>
-        <button type="button" class="btn btn-primary" onclick="fetchContent()">Load Content</button>
-        <button type="button" class="btn btn-primary" onclick="saveContent()">Save Content</button>
+        <div class="col">
+          <p><strong>Class Hours:</strong> <span id="class-hours"></span></p>
+        </div>
+        <div class="col">
+          <p><strong>Lab Hours:</strong> <span id="lab-hours"></span></p>
+        </div>
+      </div>
+      <h1>Course Information</h1>
+      <p id="location"><strong>Class Location:</strong>&nbsp;</p>
+      <p id="meeting-time-self-service">
+        <strong>Meeting Day(s)/Time(s):</strong>&nbsp;
+      </p>
+      <p id="prerequisites"><strong>Prerequisites:</strong>&nbsp;</p>
+      <p id="census-date">
+        <strong>No&nbsp;Show Date (Census Date):</strong>&nbsp;
+      </p>
+      <h1>Faculty Information</h1>
+      <p id="instructor-name"><strong>Instructor:&nbsp;</strong></p>
+      <p id="instructor-email-address"><strong>Email Address:&nbsp;</strong></p>
+      <p id="instructor-response-time"><strong>Response Time:&nbsp;</strong></p>
+      <p id="instructor-office-phone-number">
+        <strong>Office Phone Number:&nbsp;</strong>
+      </p>
+      <p id="instructor-office-location">
+        <strong>Office Location:&nbsp;</strong>
+      </p>
+      <p id="instructor-student-support-hours">
+        <strong>Available for Student Support:&nbsp;</strong>
+      </p>
+      <h1>Catalog Description</h1>
+      <p id="catalog-description">Catalog Description</p>
+      <h1>Learning Outcomes (SLOs)</h1>
+      <p>
+        Upon successfully completing this course, students will be able to
+        demonstrate the following outcomes.
+      </p>
+      <p id="slos">Enter your SLOs here.</p>
+      <h1>Required Textbook and Other Materials</h1>
+      <h2>Textbook</h2>
+      <p id="textbook-information">Enter your textbook information here.</p>
+      <h1>Grading</h1>
+      <h2>Grading Scale</h2>
+      <p id="grading-scale">
+        Enter your Grading Scale here. Many institutions are on a 10-point
+        scale.
+      </p>
+      <h2>Grading Breakdown</h2>
+      <p id="grading-breakdown">
+        Enter your grading breakdown here. This is typically either points or a
+        weighted total based on percentages.
+      </p>
+      <h2>Assignment Descriptions</h2>
+      <p>
+        A brief description of assignments is provided below.&nbsp;Detailed
+        information and requirements will be provided in class and/or online
+        within the Learning Management System (LMS).
+      </p>
+      <p id="assignment-descriptions">
+        Enter a description of each assignment type in your course.
+      </p>
     </div>
-    <script>
-        tinymce.init({
-            selector: '#editor'
-        });
-    </script>
+    <script></script>
     <script type="module" src="./js/get_info.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
+  </body>
 </html>
