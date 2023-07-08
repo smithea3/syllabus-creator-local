@@ -3,39 +3,28 @@
     "2023SP": {
       "MAT-110-SSB1": {
         "location": "Vocational Building, Room 106",
-        "meeting-time-self-service": "M/W 1:00 PM - 2:15 PM",
-        "class-days": ["Monday", "Wednesday"],
+        "meeting-time-from-self-service": "M/W 1:00 PM - 2:15 PM",
         "start-date": "2023-08-01",
         "end-date": "2023-12-31",
-        "census-date": "2023-01-19",
-        "course-materials": {
-          "textbook-information": "This is where you will enter your textbook information."
-        },
-        "course-policies": {
-            "policy-1-title": "policy-1-text",
-            "policy-2-title": "policy-2-text"
-        }
+        "census-date": "2023-01-19"
       },
       "MAT-171-SST1F": {
         "location": "Vocational Building, Room 212",
-        "meeting-time-SS": "M/W/F 9:00 AM - 10:15 AM",
-        "class-days": ["Monday", "Wednesday", "Friday"],
+        "meeting-time-from-self-service": "M/W/F 9:00 AM - 10:15 AM",
         "start-date": "2023-08-01",
         "end-date": "2023-12-31",
         "census-date": "2023-01-19"
       },
       "MAT-272-SSB1": {
         "location": "Vocational Building, Room 106",
-        "meeting-time-SS": "M/W 11:00 AM - 11:50 AM and T/Th 11:00 AM - 12:10 PM",
-        "class-days": ["Monday", "Wednesday"],
+        "meeting-time-from-self-service": "M/W 11:00 AM - 11:50 AM and T/Th 11:00 AM - 12:10 PM",
         "start-date": "2023-08-01",
         "end-date": "2023-12-31",
         "census-date": "2023-01-19"
       },
       "MAT-171-OKI1": {
         "location": "Lectures are provided online as prerecorded lectures. There are no scheduled meeting times for class times.",
-        "meeting-time-SS": "M/T/W/Th/F/Sa/Su On-Line",
-        "class-days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "meeting-time-from-self-service": "M/T/W/Th/F/Sa/Su On-Line",
         "start-date": "2023-08-01",
         "end-date": "2023-12-31",
         "census-date": "2023-10-16"
@@ -46,8 +35,7 @@
     "2023FA": {
       "MAT-000-00000": {
         "location": "Enter your classroom location here.",
-        "meeting-time-SS": "Enter your meeting times here.",
-        "class-days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "meeting-time-from-self-service": "Enter your meeting times here.",
         "start-date": "2023-08-01",
         "end-date": "2023-12-31",
         "census-date": "Enter your census date here."
