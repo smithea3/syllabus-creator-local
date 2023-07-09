@@ -1,9 +1,11 @@
+// Import all of the json files for the app
 import courses from "../json/courses.json" assert { type: "json" };
-import colllege_policies from "../json/college_policies.json" assert { type: "json" };
+import college_policies from "../json/college_policies.json" assert { type: "json" };
 import important_dates from "../json/important_dates.json" assert { type: "json" };
 import instructor_information from "../json/instructor_information.json" assert { type: "json" };
 import section_info from "../json/section_info.json" assert { type: "json" };
 
+// Fetch and respond to get the json files loaded
 fetch("./json/courses.json").then((courses) => courses.json());
 
 fetch("./json/college_policies.json").then((college_policies) =>
@@ -20,7 +22,12 @@ fetch("./json/instructor_information.json").then((instructor_information) =>
 
 fetch("./json/section_info.json").then((section_info) => section_info.json());
 
+// **********
+// HELPER FUNCTIONS SECTION
+// **********
+
 //  A function to create a UL/OL from a JSON array
+
 function convertArrayToHtmlList(inputList, listType) {
   if ((listType = "ul")) {
     var outputHTML = "<ul>";
@@ -38,6 +45,7 @@ function convertArrayToHtmlList(inputList, listType) {
   return outputHTML;
 }
 
+// A function to convert the input string to capital case
 function convertToCapitalCase(str) {
   // Split the string into an array of words
   const words = str.split(" ");
@@ -61,6 +69,17 @@ function getURLParameters(url) {
     params[key] = value;
   }
   return params;
+}
+
+// Function to generate the syllabus header with information
+function createSyllabusHeader(collegePolicies, courseInformation){
+  // Add college name
+  //TO-DO: Need to add style to the header for the college name to be centered aligned.
+  var collegeName = collegePolicies["college-name"]
+  var mainContainer = document.getElementById("main-container");
+  var header = document.createElement("h1");
+  header.innerHTML = collegeName;
+  mainContainer.appendChild(header);
 }
 
 // Function to fill in the instructor information from instructor_information.json
@@ -97,10 +116,10 @@ function getSectionInformation(sectionInformation) {
 var urlParams = getURLParameters(window.location.search);
 // getCourseInformation(urlParams);
 
-//getInstructorInformation(urlParams)
+createSyllabusHeader(college_policies[urlParams.college], courses[urlParams.course])
 getInstructorInformation(instructor_information[urlParams.instructor]);
 getSectionInformation(section_info[urlParams.college][urlParams.semester][urlParams.course]);
-console.log(section_info[urlParams.college][urlParams.semester][urlParams.course])
+
 
 
 // Used for debugging
