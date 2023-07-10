@@ -27,7 +27,6 @@ fetch("./json/section_info.json").then((section_info) => section_info.json());
 // **********
 
 //  A function to create a UL/OL from a JSON array
-
 function convertArrayToHtmlList(inputList, listType) {
   if ((listType = "ul")) {
     var outputHTML = "<ul>";
@@ -71,15 +70,17 @@ function getURLParameters(url) {
   return params;
 }
 
-// Function to generate the syllabus header with information
-function createSyllabusHeader(collegePolicies, courseInformation){
-  // Add college name
-  //TO-DO: Need to add style to the header for the college name to be centered aligned.
-  var collegeName = collegePolicies["college-name"]
+// Function to generate the syllabus header with information from college_policies.json
+function createSyllabusHeader() {
+  // Add college name to the header
   var mainContainer = document.getElementById("main-container");
-  var header = document.createElement("h1");
-  header.innerHTML = collegeName;
+  var header = document.createElement("h1")
+  header.setAttribute("style", "text-align: center;");
+  header.innerText = college_policies[urlParams.college]["college-name"];
   mainContainer.appendChild(header);
+
+  // Add the credit hours information as a CSS row to the header
+  console.log(courses);
 }
 
 // Function to fill in the instructor information from instructor_information.json
@@ -116,10 +117,13 @@ function getSectionInformation(sectionInformation) {
 var urlParams = getURLParameters(window.location.search);
 // getCourseInformation(urlParams);
 
-createSyllabusHeader(college_policies[urlParams.college], courses[urlParams.course])
+createSyllabusHeader(
+  college_policies[urlParams.college],
+  courses
+);
 getInstructorInformation(instructor_information[urlParams.instructor]);
-getSectionInformation(section_info[urlParams.college][urlParams.semester][urlParams.course]);
-
-
+getSectionInformation(
+  section_info[urlParams.college][urlParams.semester][urlParams.course]
+);
 
 // Used for debugging
