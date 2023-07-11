@@ -45,7 +45,7 @@ function convertArrayToHtmlList(inputList, listType) {
 }
 
 // A function to convert the input string to capital case
-function convertToCapitalCase(str) {
+function convertStrToCapitalCase(str) {
   // Split the string into an array of words
   const words = str.split(" ");
   // Convert the first character of each word to uppercase and
@@ -70,28 +70,16 @@ function getURLParameters(url) {
   return params;
 }
 
-// Function to generate the syllabus header with information from college_policies.json
-function createSyllabusHeader() {
-  // Add college name to the header
-  var mainContainer = document.getElementById("main-container");
-  var header = document.createElement("h1")
-  header.setAttribute("style", "text-align: center;");
-  header.innerText = college_policies[urlParams.college]["college-name"];
-  mainContainer.appendChild(header);
-
-  // Add the credit hours information as a CSS row to the header
-  console.log(courses);
-}
-
 // Function to fill in the instructor information from instructor_information.json
-function getInstructorInformation(instructor) {
+function getInstructorInformation() {
+  var instructor = instructor_information[urlParams.instructor];
   var mainContainer = document.getElementById("main-container");
   var header = document.createElement("h2");
   header.innerHTML = "Instructor Information";
   mainContainer.appendChild(header);
   for (var info in instructor) {
     var content = document.createElement("p");
-    content.innerHTML = `<strong>${convertToCapitalCase(
+    content.innerHTML = `<strong>${convertStrToCapitalCase(
       String(info).replace(/-/g, " ")
     )}:</strong> ${instructor[String(info)]}`;
     mainContainer.appendChild(content);
@@ -99,14 +87,15 @@ function getInstructorInformation(instructor) {
 }
 
 // Function to fill in the course's section information from section_info.json
-function getSectionInformation(sectionInformation) {
+function getSectionInformation() {
+  var sectionInformation = section_info[urlParams.college][urlParams.semester][urlParams.course];
   var mainContainer = document.getElementById("main-container");
   var header = document.createElement("h2");
-  header.innerHTML = "Course Section Information";
+  header.innerHTML = "Section Information";
   mainContainer.appendChild(header);
   for (var info in sectionInformation) {
     var content = document.createElement("p");
-    content.innerHTML = `<strong>${convertToCapitalCase(
+    content.innerHTML = `<strong>${convertStrToCapitalCase(
       String(info).replace(/-/g, " ")
     )}:</strong> ${sectionInformation[String(info)]}`;
     mainContainer.appendChild(content);
@@ -115,15 +104,13 @@ function getSectionInformation(sectionInformation) {
 
 // This section is for adding the information via the helper functions above to the syllabus
 var urlParams = getURLParameters(window.location.search);
-// getCourseInformation(urlParams);
 
-createSyllabusHeader(
-  college_policies[urlParams.college],
-  courses
-);
-getInstructorInformation(instructor_information[urlParams.instructor]);
-getSectionInformation(
-  section_info[urlParams.college][urlParams.semester][urlParams.course]
-);
+// Create course information variables
+var courseFromURL = urlParams.course.split("-");
+var courseSubject = courseFromURL[0];
+var courseNumber = courseFromURL[1];
+var courseSection = courseFromURL[2];
 
+getInstructorInformation()
+getSectionInformation();
 // Used for debugging
