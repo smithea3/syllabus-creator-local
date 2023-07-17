@@ -1,6 +1,6 @@
 {
-    "templateCollege": {
-        "college-name": "Template College",
+    "TemplateCollege": {
+        "collegeName": "Template College",
         "policies": {
             "lms": {
                 "title": "Learning Management System",
@@ -12,8 +12,8 @@
             }
         }
     },
-    "mitchellcc": {
-        "college-name": "Mitchell Community College",
+    "MitchellCC": {
+        "collegeName": "Mitchell Community College",
         "policies": {
             "lms": {
                 "title": "Learning Management Systems (LMS)",

@@ -1,29 +1,29 @@
 {
-  "mitchellcc": {
+  "MitchellCC": {
     "2023SP": {
       "MAT-110-SSB1": {
-        "location": "Vocational Building, Room 106",
+        "class-location": "Vocational Building, Room 106",
         "meeting-time-from-self-service": "M/W 1:00 PM - 2:15 PM",
         "start-date": "2023-08-01",
         "end-date": "2023-12-31",
         "census-date": "2023-01-19"
       },
       "MAT-171-SST1F": {
-        "location": "Vocational Building, Room 212",
+        "class-location": "Vocational Building, Room 212",
         "meeting-time-from-self-service": "M/W/F 9:00 AM - 10:15 AM",
         "start-date": "2023-08-01",
         "end-date": "2023-12-31",
         "census-date": "2023-01-19"
       },
       "MAT-272-SSB1": {
-        "location": "Vocational Building, Room 106",
+        "class-location": "Vocational Building, Room 106",
         "meeting-time-from-self-service": "M/W 11:00 AM - 11:50 AM and T/Th 11:00 AM - 12:10 PM",
         "start-date": "2023-08-01",
         "end-date": "2023-12-31",
         "census-date": "2023-01-19"
       },
       "MAT-171-OKI1": {
-        "location": "Lectures are provided online as prerecorded lectures. There are no scheduled meeting times for class times.",
+        "class-location": "Lectures are provided online as prerecorded lectures. There are no scheduled meeting times for class times.",
         "meeting-time-from-self-service": "M/T/W/Th/F/Sa/Su On-Line",
         "start-date": "2023-08-01",
         "end-date": "2023-12-31",
@@ -31,10 +31,10 @@
       }
     }
   },
-  "templateCollege": {
+  "TemplateCollege": {
     "2023FA": {
       "MAT-000-00000": {
-        "location": "Enter your classroom location here.",
+        "class-location": "Enter your classroom location here.",
         "meeting-time-from-self-service": "Enter your meeting times here.",
         "start-date": "2023-08-01",
         "end-date": "2023-12-31",
