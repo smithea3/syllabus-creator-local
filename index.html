@@ -22,14 +22,13 @@
           <form>
             <!-- Instructor ID -->
             <div class="input-group mb-3">
-              <span class="input-group-text" id="inputInstructorID"
-                >Instructor ID</span
-              >
+              <span class="input-group-text">Instructor ID</span>
               <input
                 type="text"
                 class="form-control"
                 aria-label="instructor id"
                 aria-describedby="inputGroup-sizing-default"
+                id="inputInstructorID"
               />
             </div>
             <!-- College Choices for Form -->
@@ -52,15 +51,34 @@
             </div>
             <!-- Course Section Input -->
             <div class="input-group mb-3">
-              <span class="input-group-text" id="inputCourseSection"
-                >Course Section</span
-              >
+              <span class="input-group-text">Course Section</span>
               <input
                 type="text"
                 class="form-control"
                 aria-label="course section"
                 aria-describedby="inputGroup-sizing-default"
+                id="inputCourseSection"
               />
+            </div>
+            <div
+              class="btn-group"
+              role="group"
+              aria-lable="submit button group"
+            >
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="inputSubmitButton"
+              >
+                Submit
+              </button>
+              <button
+                type="button"
+                class="btn btn-warning"
+                id="inputClearButton"
+              >
+                Clear
+              </button>
             </div>
           </form>
         </div>

@@ -22,6 +22,11 @@ fetch("./json/instructor_information.json").then((instructor_information) =>
 
 fetch("./json/section_info.json").then((section_info) => section_info.json());
 
+//***********
+// GLOBAL VARIABLES SECTION
+//***********
+const syllabusPreview = document.getElementById("syllabus-preview");
+
 // **********
 // HELPER FUNCTIONS SECTION
 // **********
@@ -73,27 +78,78 @@ function getURLParameters(url) {
 }
 
 // **********
+// GET FORM INFOMATION AND STORE AS OBJECT
+/// **********
+// Create the form information as a JS object.
+// This is initatlized with default values for viewing.
+let forInformation = {
+  instructorID: "example-instructor",
+  college: "MitchellCC",
+  course: "MAT-110",
+  section: "SSB1",
+  semester: "2023SP",
+};
+
+// Get the instructorID.
+document
+  .getElementById("inputSubmitButton")
+  .addEventListener("click", (event) => {
+    if (Boolean(document.getElementById("inputInstructorID").value)) {
+      forInformation.instructorID =
+        document.getElementById("inputInstructorID").value;
+    }
+  });
+
+// Get the college.
+document
+  .getElementById("inputSubmitButton")
+  .addEventListener("click", (event) => {
+    if (document.getElementById("inputCollegeList").value > 0) {
+      forInformation.college =
+        document.getElementById("inputCollegeList")[
+          document.getElementById("inputCollegeList").selectedIndex
+        ].innerText;
+    }
+  });
+
+// Get the course.
+document
+  .getElementById("inputSubmitButton")
+  .addEventListener("click", (event) => {
+    if (document.getElementById("inputCourseList").value > 0) {
+      forInformation.course =
+        document.getElementById("inputCourseList")[
+          document.getElementById("inputCourseList").selectedIndex
+        ].innerText;
+    }
+  });
+
+// Get the course section.
+document
+  .getElementById("inputSubmitButton")
+  .addEventListener("click", (event) => {
+    if (Boolean(document.getElementById("inputCourseSection").value)) {
+      forInformation.section =
+        document.getElementById("inputCourseSection").value;
+    }
+  });
+
+// **********
 // SYLLABUS PREVIEW GENERATION SECTION
 // **********
 function createSyllabusHeader(
   college = "MitchellCC",
   course = "MAT-110",
   section = "SSB1",
-  semester = "2023FA"
+  semester = "2023SP"
 ) {
   /** The variables for section and semester are set by default for viewing. **/
-  const syllabusPreview = document.getElementById("syllabus-preview");
-  const collegeInformation = college_policies[college];
-  const courseInformation = courses[course];
-  var headerText = "";
-  headerText += `<h1 style="text-align:center">${collegeInformation.collegeName}</h1>`;
-  syllabusPreview.innerHTML += headerText;
-  syllabusPreview.innerHTML += `<h4 style="text-align:center">${courseInformation.title}</h4>`;
+  syllabusPreview.innerHTML += `<h1 style="text-align:center">${college_policies[college].collegeName}</h1>`;
+  syllabusPreview.innerHTML += `<h4 style="text-align:center">${courses[course].title}</h4>`;
   syllabusPreview.innerHTML += `<h4 style="text-align:center">${course}-${section} (${semester})</h4>`;
 }
 
 function createInstructorInformationSection(instructor = "example-instructor") {
-  const syllabusPreview = document.getElementById("syllabus-preview");
   syllabusPreview.innerHTML += `<h2>Instructor Information</h2>`;
   for (var info in instructor_information[instructor]) {
     syllabusPreview.innerHTML += `<p><strong>${convertToStrAndCapitalCase(
@@ -108,7 +164,6 @@ function createCourseInformationSection(
   section = "SSB1",
   semester = "2023SP"
 ) {
-  const syllabusPreview = document.getElementById("syllabus-preview");
   const courseInformation = courses[course];
   const sectionInformation =
     section_info[college][semester][course + "-" + section];
@@ -119,7 +174,6 @@ function createCourseInformationSection(
     '<div class="row" id="credit-class-lab-hours"></div>';
   var creditClassLabHoursArray = ["credit-hours", "class-hours", "lab-hours"];
   for (var item of creditClassLabHoursArray) {
-    console.log(creditClassLabHoursArray[0]);
     document.getElementById(
       "credit-class-lab-hours"
     ).innerHTML += `<div class="col"><p><strong>${convertToStrAndCapitalCase(
@@ -140,7 +194,6 @@ function createCourseInformationSection(
 }
 
 function createInstitutionalPoliciesSection(college = "MitchellCC") {
-  const syllabusPreview = document.getElementById("syllabus-preview");
   const collegePolicies = college_policies[college].policies;
   for (var policy in collegePolicies) {
     syllabusPreview.innerHTML += `<h2>${collegePolicies[policy].title}</h2>`;
@@ -148,7 +201,29 @@ function createInstitutionalPoliciesSection(college = "MitchellCC") {
   }
 }
 
-createSyllabusHeader();
-createInstructorInformationSection();
-createCourseInformationSection();
-createInstitutionalPoliciesSection();
+document
+  .getElementById("inputSubmitButton")
+  .addEventListener("click", (event) => {
+    document.getElementById("inputSubmitButton").classList.add("disabled");
+    createSyllabusHeader(
+      forInformation.college,
+      forInformation.course,
+      forInformation.section,
+      forInformation.semester
+    );
+    createInstructorInformationSection(forInformation.instructorID);
+    createCourseInformationSection(
+      forInformation.college,
+      forInformation.course
+    );
+    createInstitutionalPoliciesSection(forInformation.college);
+  });
+
+document
+  .getElementById("inputClearButton")
+  .addEventListener("click", (event) => {
+    document.getElementById("inputSubmitButton").classList.remove("disabled");
+    syllabusPreview.innerHTML = "";
+  });
+
+/** DEBUGGING AND TESTING AREA **/
