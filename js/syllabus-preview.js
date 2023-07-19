@@ -82,7 +82,7 @@ function getURLParameters(url) {
 /// **********
 // Create the form information as a JS object.
 // This is initatlized with default values for viewing.
-let forInformation = {
+let formInformation = {
   instructorID: "example-instructor",
   college: "MitchellCC",
   course: "MAT-110",
@@ -95,8 +95,18 @@ document
   .getElementById("inputSubmitButton")
   .addEventListener("click", (event) => {
     if (Boolean(document.getElementById("inputInstructorID").value)) {
-      forInformation.instructorID =
+      formInformation.instructorID =
         document.getElementById("inputInstructorID").value;
+    }
+  });
+
+// Get the semester.
+document
+  .getElementById("inputSubmitButton")
+  .addEventListener("click", (event) => {
+    if (Boolean(document.getElementById("inputSemester").value)) {
+      formInformation.semester = document.getElementById("inputSemester").value;
+      console.log(formInformation.semester);
     }
   });
 
@@ -105,7 +115,7 @@ document
   .getElementById("inputSubmitButton")
   .addEventListener("click", (event) => {
     if (document.getElementById("inputCollegeList").value > 0) {
-      forInformation.college =
+      formInformation.college =
         document.getElementById("inputCollegeList")[
           document.getElementById("inputCollegeList").selectedIndex
         ].innerText;
@@ -117,7 +127,7 @@ document
   .getElementById("inputSubmitButton")
   .addEventListener("click", (event) => {
     if (document.getElementById("inputCourseList").value > 0) {
-      forInformation.course =
+      formInformation.course =
         document.getElementById("inputCourseList")[
           document.getElementById("inputCourseList").selectedIndex
         ].innerText;
@@ -129,7 +139,7 @@ document
   .getElementById("inputSubmitButton")
   .addEventListener("click", (event) => {
     if (Boolean(document.getElementById("inputCourseSection").value)) {
-      forInformation.section =
+      formInformation.section =
         document.getElementById("inputCourseSection").value;
     }
   });
@@ -206,17 +216,19 @@ document
   .addEventListener("click", (event) => {
     document.getElementById("inputSubmitButton").classList.add("disabled");
     createSyllabusHeader(
-      forInformation.college,
-      forInformation.course,
-      forInformation.section,
-      forInformation.semester
+      formInformation.college,
+      formInformation.course,
+      formInformation.section,
+      formInformation.semester
     );
-    createInstructorInformationSection(forInformation.instructorID);
+    createInstructorInformationSection(formInformation.instructorID);
     createCourseInformationSection(
-      forInformation.college,
-      forInformation.course
+      formInformation.college,
+      formInformation.course,
+      formInformation.section,
+      formInformation.semester
     );
-    createInstitutionalPoliciesSection(forInformation.college);
+    createInstitutionalPoliciesSection(formInformation.college);
   });
 
 document
