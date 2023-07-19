@@ -22,53 +22,62 @@
           <form>
             <!-- Instructor ID -->
             <div class="input-group mb-3">
-              <span class="input-group-text">Instructor ID</span>
+              <span class="input-group-text"
+                ><i class="fa-solid fa-chalkboard-user"></i
+              ></span>
               <input
                 type="text"
                 class="form-control"
                 aria-label="instructor id"
                 aria-describedby="inputGroup-sizing-default"
                 id="inputInstructorID"
+                placeholder="Enter Instructor ID"
               />
             </div>
             <!-- Semester -->
             <div class="input-group mb-3">
-              <span class="input-group-text">Semester</span>
+              <span class="input-group-text"
+                ><i class="fa-regular fa-calendar"></i
+              ></span>
               <input
                 type="text"
                 class="form-control"
                 aria-label="semester input"
                 aria-describedby="inputGroup-sizing-default"
                 id="inputSemester"
+                placeholder="Enter Semester (e.g. 2023SP)"
               />
             </div>
             <!-- College Choices for Form -->
             <div class="input-group mb-3">
               <label class="input-group-text" for="inputGroupSelect01"
-                >College</label
-              >
+                ><i class="fa-solid fa-building-columns"></i
+              ></label>
               <select class="form-select" id="inputCollegeList">
-                <option selected>Choose...</option>
+                <option selected>Choose a college...</option>
               </select>
             </div>
             <!-- Course Choices for Form -->
             <div class="input-group mb-3">
               <label class="input-group-text" for="inputGroupSelect01"
-                >Course ID</label
-              >
+                ><i class="fa-solid fa-book-open-reader"></i
+              ></label>
               <select class="form-select" id="inputCourseList">
-                <option selected>Choose...</option>
+                <option selected>Choose a course...</option>
               </select>
             </div>
             <!-- Course Section Input -->
             <div class="input-group mb-3">
-              <span class="input-group-text">Course Section</span>
+              <span class="input-group-text"
+                ><i class="fa-solid fa-bookmark"></i
+              ></span>
               <input
                 type="text"
                 class="form-control"
                 aria-label="course section"
                 aria-describedby="inputGroup-sizing-default"
                 id="inputCourseSection"
+                placeholder="Enter Course Section"
               />
             </div>
             <div
@@ -81,14 +90,14 @@
                 class="btn btn-primary"
                 id="inputSubmitButton"
               >
-                Submit
+                <i class="fa-solid fa-arrow-right-to-bracket"></i> Submit
               </button>
               <button
                 type="button"
                 class="btn btn-warning"
                 id="inputClearButton"
               >
-                Clear
+                <i class="fa-regular fa-trash-can"></i> Clear
               </button>
             </div>
           </form>
@@ -99,7 +108,10 @@
         </div>
       </div>
     </div>
-    <script></script>
+    <script
+      src="https://kit.fontawesome.com/3a3d54340a.js"
+      crossorigin="anonymous"
+    ></script>
     <script type="module" src="./js/syllabus-preview.js"></script>
     <script type="module" src="./js/form.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
