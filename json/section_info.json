@@ -29,6 +29,36 @@
         "end-date": "2023-12-31",
         "census-date": "2023-10-16"
       }
+    },
+    "2023FA": {
+      "MAT-110-SSB1": {
+        "class-location": "Vocational Building, Room 106",
+        "meeting-time-from-self-service": "M/W 1:00 PM - 2:15 PM",
+        "start-date": "2023-08-14",
+        "end-date": "2023-12-11",
+        "census-date": "2023-08-23"
+      },
+      "MAT-171-SJB1": {
+        "class-location": "Vocational Building, Room 213",
+        "meeting-time-from-self-service": "M/T/W/Th 9:30 AM - 10:45 AM",
+        "start-date": "2023-08-14",
+        "end-date": "2023-10-06",
+        "census-date": "2023-08-17"
+      },
+      "MAT-272-SST1": {
+        "class-location": "Vocational Building, Room 213",
+        "meeting-time-from-self-service": "M/W 11:00 AM - 11:50 AM and T/Th 11:00 AM - 12:15 PM",
+        "start-date": "2023-08-14",
+        "end-date": "2023-12-11",
+        "census-date": "2023-08-23"
+      },
+      "MAT-171-OKI1": {
+        "class-location": "Lectures are provided online as prerecorded lectures. There are no scheduled meeting times for class times.  This class will meet for a proctored in-class midterm on April 7 from 11 a.m. - 1:30 p.m. and for a proctored in-class final exam on May 5 from 11 a.m.-1:30 p.m.",
+        "meeting-time-from-self-service": "M/T/W/Th/F/Sa/Su On-Line",
+        "start-date": "2023-10-11",
+        "end-date": "2023-12-08",
+        "census-date": "2023-10-16"
+      }
     }
   },
   "TemplateCollege": {
