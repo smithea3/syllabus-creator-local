@@ -23,23 +23,23 @@ fetch("./json/instructor_information.json").then((instructor_information) =>
 fetch("./json/section_info.json").then((section_info) => section_info.json());
 
 function getListOfCourses(courses) {
-    var courseList = "";
-    var count = 1;
-    for (const courseID in courses) {
-        courseList += `<option value=${count}>${courseID}</option>`;
-        count++;
-    }    
-    document.getElementById("inputCourseList").innerHTML += courseList;
+  var courseList = "";
+  var count = 1;
+  for (const courseID in courses) {
+    courseList += `<option value=${count}>${courseID}</option>`;
+    count++;
+  }
+  document.getElementById("inputCourseList").innerHTML += courseList;
 }
 
 function getListOfColleges(college_policies) {
-    var collegeList = "";
-    var count = 1;
-    for (const collegeID in college_policies) {
-        collegeList += `<option value=${count}>${collegeID}</option>`;
-        count++;
-    }    
-    document.getElementById("inputCollegeList").innerHTML += collegeList;
+  var collegeList = "";
+  var count = 1;
+  for (const collegeID in college_policies) {
+    collegeList += `<option value=${count}>${collegeID}</option>`;
+    count++;
+  }
+  document.getElementById("inputCollegeList").innerHTML += collegeList;
 }
 
 getListOfCourses(courses);
