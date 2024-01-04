@@ -113,7 +113,6 @@ document
     const startDate = document.getElementById("formStartDate").value;
     const endDate = document.getElementById("formEndDate").value;
     var listOfDatesElement = document.getElementById("listOfDates");
-    listOfDatesElement.innerHTML = "<ul>";
     const listOfDates = getSpecificDatesBetween(
       startDate,
       endDate,
@@ -121,7 +120,6 @@ document
     );
 
     for (date of listOfDates) {
-      listOfDatesElement.innerHTML += `<li><strong>${date}</strong></li>`;
+      listOfDatesElement.innerHTML += `<h2><strong>${date}</strong></h2>`;
     }
-    listOfDatesElement += "</ul>";
   });
