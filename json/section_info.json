@@ -60,6 +60,15 @@
         "census-date": "2023-10-16"
       }
     }
+  "2023SP": {
+      "MAT-273-SST1": {
+        "class-location": "Vocational Building, Room 213",
+        "meeting-time-from-self-service": "M/W 11 a.m. - 11:50 a.m. and T/Th 11 - 12:15 p.m.",
+        "start-date": "2024-01-08",
+        "end-date": "2023-05-06",
+        "census-date": "2024-01-18"
+      }
+    }
   },
   "TemplateCollege": {
     "2023FA": {
