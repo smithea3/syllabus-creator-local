@@ -120,6 +120,6 @@ document
     );
 
     for (date of listOfDates) {
-      listOfDatesElement.innerHTML += `<h2><strong>${date}</strong></h2>`;
+      listOfDatesElement.innerHTML += `<h2>${date}</h2>`;
     }
   });
