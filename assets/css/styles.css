@@ -1,3 +1,11 @@
 h1 {
   text-align: center;
 }
+
+footer {
+  background-color: #d6d6d6;
+  padding: 45px 0 20px;
+  font-size: 15px;
+  line-height: 24px;
+  color: #000000;
+}

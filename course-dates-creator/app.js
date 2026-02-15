@@ -1,10 +1,12 @@
 /**
  * Project: Date Generator Single-page App
- * 
+ *
  * This code includes contributions from Claude 3.7 Sonnet by Anthropic.
  * Date of assistance: May 17, 2025
  * https://www.anthropic.com/claude
  */
+
+import importantDates from "../json/important_dates.json" assert { type: "json" };
 
 // Helper function to format the date as 'Day, mm/dd/yyyy'
 function formatDateWithDay(date) {
@@ -24,155 +26,317 @@ function formatDateWithDay(date) {
   return `${dayOfWeek}, ${month}/${day}/${year}`;
 }
 
+// Convert a Date to 'YYYY-MM-DD' string for comparison with JSON keys
+function toDateKey(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
 // Generate dates between start and end that match selected days of week
 function getSpecificDatesBetween(start, end, daysOfWeek) {
-  // Parse dates and ensure we're working with date-only values (no time)
   const startDate = new Date(start);
-  startDate.setHours(0, 0, 0, 0); // Reset time to beginning of day
+  startDate.setHours(0, 0, 0, 0);
 
   const endDate = new Date(end);
-  endDate.setHours(23, 59, 59, 999); // Set time to end of day
+  endDate.setHours(23, 59, 59, 999);
 
   const dateList = [];
 
-  // Make sure the start date is before the end date
   if (startDate > endDate) {
     return dateList;
   }
 
-  // Convert days of the week to uppercase for matching
   const selectedDays = daysOfWeek.map((day) => day.toUpperCase());
 
-  // Loop through dates and add them to the list if they match the selected days
-  // Clone the start date to avoid modifying the original
   let currentDate = new Date(startDate.getTime());
 
-  // Use <= to include the end date in the range
   while (currentDate <= endDate) {
-    const currentDayName = currentDate.toLocaleDateString("en-US", {
-      weekday: "long",
-    }).toUpperCase();
+    const currentDayName = currentDate
+      .toLocaleDateString("en-US", { weekday: "long" })
+      .toUpperCase();
 
     if (selectedDays.includes(currentDayName)) {
-      dateList.push(formatDateWithDay(new Date(currentDate))); // Clone the date for formatting
+      dateList.push({
+        formatted: formatDateWithDay(new Date(currentDate)),
+        dateKey: toDateKey(currentDate),
+      });
     }
 
-    // Move to next day
     currentDate.setDate(currentDate.getDate() + 1);
   }
 
   return dateList;
 }
 
-// Initialize the app when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', function () {
-  const selectedDaysOfWeek = new Set();
-  const dayCheckboxes = document.querySelectorAll('[id^="daySelection"]');
-  const formStartDate = document.getElementById("formStartDate");
-  const formEndDate = document.getElementById("formEndDate");
-  const formSubmitButton = document.getElementById("formSubmitButton");
-  const listOfDatesElement = document.getElementById("listOfDates");
-  const copyDatesButton = document.getElementById("copyDatesButton");
-
-  // Track generated dates for the copy function
-  let generatedDates = [];
-
-  // Set up event handlers for all day checkboxes
-  dayCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener("change", function () {
-      const dayName = this.value;
-      if (this.checked) {
-        selectedDaysOfWeek.add(dayName);
-      } else {
-        selectedDaysOfWeek.delete(dayName);
-      }
-    });
-  });
-
-  // Copy to clipboard functionality
-  copyDatesButton.addEventListener("click", function () {
-    if (generatedDates.length === 0) return;
-
-    // Create a plain text version for clipboard
-    const plainTextDates = generatedDates.join('\n');
-
-    // Use the Clipboard API to copy the text
-    navigator.clipboard.writeText(plainTextDates)
-      .then(() => {
-        // Provide feedback that copying worked
-        const originalText = copyDatesButton.innerHTML;
-        copyDatesButton.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2 me-1" viewBox="0 0 16 16">
-            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-          </svg>
-          Copied!
-        `;
-        copyDatesButton.classList.remove('btn-outline-secondary');
-        copyDatesButton.classList.add('btn-success');
-
-        // Reset button after 2 seconds
-        setTimeout(() => {
-          copyDatesButton.innerHTML = originalText;
-          copyDatesButton.classList.remove('btn-success');
-          copyDatesButton.classList.add('btn-outline-secondary');
-        }, 2000);
-      })
-      .catch(err => {
-        console.error('Failed to copy: ', err);
-        alert('Failed to copy dates to clipboard');
-      });
-  });
-
-  // Handle form submission
-  formSubmitButton.addEventListener("click", function () {
-    // Validate inputs
-    if (!formStartDate.value || !formEndDate.value) {
-      alert("Please select both start and end dates");
-      return;
+// Look up important date info for a given date key across all semesters
+function getImportantDateInfo(dateKey) {
+  for (const semester of Object.values(importantDates)) {
+    if (semester.dates && semester.dates[dateKey]) {
+      return semester.dates[dateKey];
     }
+  }
+  return null;
+}
 
-    if (selectedDaysOfWeek.size === 0) {
-      alert("Please select at least one day of the week");
-      return;
-    }
+// Show a Bootstrap inline alert
+function showAlert(message, type = "warning") {
+  const container = document.getElementById("alertContainer");
+  container.textContent = "";
 
-    // Clear previous results
-    listOfDatesElement.innerHTML = "";
+  const alert = document.createElement("div");
+  alert.className = `alert alert-${type} alert-dismissible fade show`;
+  alert.setAttribute("role", "alert");
+  alert.textContent = message;
 
-    // Get the dates - adding time portion to ensure timezone consistency
-    const startDateStr = formStartDate.value + "T00:00:00";
-    const endDateStr = formEndDate.value + "T23:59:59";
+  const closeBtn = document.createElement("button");
+  closeBtn.type = "button";
+  closeBtn.className = "btn-close";
+  closeBtn.setAttribute("data-bs-dismiss", "alert");
+  closeBtn.setAttribute("aria-label", "Close");
+  alert.appendChild(closeBtn);
 
-    generatedDates = getSpecificDatesBetween(
-      startDateStr,
-      endDateStr,
-      Array.from(selectedDaysOfWeek)
-    );
+  container.appendChild(alert);
+}
 
-    // Enable or disable copy button based on results
-    if (generatedDates.length > 0) {
-      copyDatesButton.disabled = false;
-    } else {
-      copyDatesButton.disabled = true;
-    }
+// Clear any visible alerts
+function clearAlerts() {
+  document.getElementById("alertContainer").textContent = "";
+}
 
-    // Display results - using Bootstrap list group
-    if (generatedDates.length === 0) {
-      listOfDatesElement.innerHTML = "<div class='list-group-item'>No dates found matching your criteria</div>";
-    } else {
-      // Create Bootstrap list group items for each date
-      const dateElements = generatedDates.map(date =>
-        `<div class="list-group-item">${date}</div>`
-      );
-      listOfDatesElement.innerHTML = dateElements.join("");
-    }
-  });
+// Initialize the app
+const selectedDaysOfWeek = new Set();
+const semesterSelect = document.getElementById("semesterSelect");
+const formStartDate = document.getElementById("formStartDate");
+const formEndDate = document.getElementById("formEndDate");
+const formSubmitButton = document.getElementById("formSubmitButton");
+const listOfDatesElement = document.getElementById("listOfDates");
+const copyDatesButton = document.getElementById("copyDatesButton");
+const copyIconClipboard = document.getElementById("copyIconClipboard");
+const copyIconCheck = document.getElementById("copyIconCheck");
+const copyButtonText = document.getElementById("copyButtonText");
+const dateCountBadge = document.getElementById("dateCount");
+const clearButton = document.getElementById("clearButton");
+const excludeHolidaysCheckbox = document.getElementById("excludeHolidays");
+const dayCheckboxContainer = document.getElementById("dayCheckboxContainer");
 
-  // Optional: Set default dates for better user experience
-  const today = new Date();
-  const nextMonth = new Date(today);
-  nextMonth.setMonth(today.getMonth() + 1);
+let generatedDates = [];
 
-  formStartDate.valueAsDate = today;
-  formEndDate.valueAsDate = nextMonth;
+// Populate semester dropdown from important_dates.json
+for (const key of Object.keys(importantDates)) {
+  const option = document.createElement("option");
+  option.value = key;
+  option.textContent = key;
+  semesterSelect.appendChild(option);
+}
+
+// When a semester is selected, auto-fill start/end dates
+semesterSelect.addEventListener("change", function () {
+  const selected = this.value;
+  if (selected === "custom") {
+    formStartDate.value = "";
+    formEndDate.value = "";
+    formStartDate.readOnly = false;
+    formEndDate.readOnly = false;
+    return;
+  }
+
+  const semester = importantDates[selected];
+  if (semester) {
+    formStartDate.value = semester.startDate;
+    formEndDate.value = semester.endDate;
+    formStartDate.readOnly = true;
+    formEndDate.readOnly = true;
+  }
 });
+
+// Event delegation for day checkboxes
+dayCheckboxContainer.addEventListener("change", function (e) {
+  if (!e.target.matches('[id^="daySelection"]')) return;
+  const dayName = e.target.value;
+  if (e.target.checked) {
+    selectedDaysOfWeek.add(dayName);
+  } else {
+    selectedDaysOfWeek.delete(dayName);
+  }
+});
+
+// Copy to clipboard
+copyDatesButton.addEventListener("click", function () {
+  if (generatedDates.length === 0) return;
+
+  const excludeHolidays = excludeHolidaysCheckbox.checked;
+  const datesToCopy = generatedDates
+    .filter((d) => !excludeHolidays || !d.isClosedOrHoliday)
+    .map((d) => d.formatted);
+
+  navigator.clipboard
+    .writeText(datesToCopy.join("\n"))
+    .then(() => {
+      copyIconClipboard.classList.add("d-none");
+      copyIconCheck.classList.remove("d-none");
+      copyButtonText.textContent = "Copied!";
+      copyDatesButton.classList.remove("btn-outline-secondary");
+      copyDatesButton.classList.add("btn-success");
+
+      setTimeout(() => {
+        copyIconClipboard.classList.remove("d-none");
+        copyIconCheck.classList.add("d-none");
+        copyButtonText.textContent = "Copy Dates";
+        copyDatesButton.classList.remove("btn-success");
+        copyDatesButton.classList.add("btn-outline-secondary");
+      }, 2000);
+    })
+    .catch((err) => {
+      console.error("Failed to copy: ", err);
+      showAlert("Failed to copy dates to clipboard", "danger");
+    });
+});
+
+// Re-render when exclude holidays checkbox changes
+excludeHolidaysCheckbox.addEventListener("change", function () {
+  if (generatedDates.length > 0) {
+    renderDates();
+  }
+});
+
+// Handle form submission
+formSubmitButton.addEventListener("click", function () {
+  clearAlerts();
+
+  if (!formStartDate.value || !formEndDate.value) {
+    showAlert("Please select both start and end dates.");
+    return;
+  }
+
+  if (selectedDaysOfWeek.size === 0) {
+    showAlert("Please select at least one day of the week.");
+    return;
+  }
+
+  const startDateStr = formStartDate.value + "T00:00:00";
+  const endDateStr = formEndDate.value + "T23:59:59";
+
+  const rawDates = getSpecificDatesBetween(
+    startDateStr,
+    endDateStr,
+    Array.from(selectedDaysOfWeek)
+  );
+
+  // Enrich dates with important date info
+  generatedDates = rawDates.map((d) => {
+    const info = getImportantDateInfo(d.dateKey);
+    return {
+      formatted: d.formatted,
+      dateKey: d.dateKey,
+      event: info ? info.event : null,
+      hasClass: info ? info.hasClass : true,
+      collegeOpen: info ? info.collegeOpen : true,
+      isClosedOrHoliday: info ? (!info.hasClass || !info.collegeOpen) : false,
+    };
+  });
+
+  renderDates();
+});
+
+// Render the generated dates list using DocumentFragment
+function renderDates() {
+  const excludeHolidays = excludeHolidaysCheckbox.checked;
+  const visibleDates = excludeHolidays
+    ? generatedDates.filter((d) => !d.isClosedOrHoliday)
+    : generatedDates;
+
+  listOfDatesElement.textContent = "";
+
+  copyDatesButton.disabled = visibleDates.length === 0;
+
+  // Update date count badge
+  if (visibleDates.length > 0) {
+    dateCountBadge.textContent = visibleDates.length;
+    dateCountBadge.classList.remove("d-none");
+  } else {
+    dateCountBadge.classList.add("d-none");
+  }
+
+  if (visibleDates.length === 0) {
+    const emptyItem = document.createElement("div");
+    emptyItem.className = "list-group-item";
+    emptyItem.textContent = "No dates found matching your criteria";
+    listOfDatesElement.appendChild(emptyItem);
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+
+  for (const dateObj of visibleDates) {
+    const item = document.createElement("div");
+    item.className = "list-group-item";
+
+    if (dateObj.isClosedOrHoliday) {
+      item.classList.add("list-group-item-warning");
+    }
+
+    const dateText = document.createElement("div");
+
+    if (dateObj.isClosedOrHoliday) {
+      const struck = document.createElement("s");
+      struck.textContent = dateObj.formatted;
+      dateText.appendChild(struck);
+
+      const badge = document.createElement("span");
+      badge.className = "badge bg-warning text-dark ms-2";
+      badge.textContent = !dateObj.collegeOpen ? "College Closed" : "No Class";
+      dateText.appendChild(badge);
+    } else {
+      dateText.textContent = dateObj.formatted;
+    }
+
+    item.appendChild(dateText);
+
+    // Show event description if one exists
+    if (dateObj.event) {
+      const eventDesc = document.createElement("small");
+      eventDesc.className = "text-muted d-block";
+      eventDesc.textContent = dateObj.event;
+      item.appendChild(eventDesc);
+    }
+
+    fragment.appendChild(item);
+  }
+
+  listOfDatesElement.appendChild(fragment);
+}
+
+// Clear/Reset button
+clearButton.addEventListener("click", function () {
+  clearAlerts();
+
+  // Reset form
+  semesterSelect.value = "custom";
+  formStartDate.value = "";
+  formEndDate.value = "";
+  formStartDate.readOnly = false;
+  formEndDate.readOnly = false;
+  excludeHolidaysCheckbox.checked = false;
+
+  // Uncheck all day checkboxes
+  dayCheckboxContainer.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+    cb.checked = false;
+  });
+  selectedDaysOfWeek.clear();
+
+  // Clear results
+  generatedDates = [];
+  listOfDatesElement.textContent = "";
+  copyDatesButton.disabled = true;
+  dateCountBadge.classList.add("d-none");
+});
+
+// Set default dates
+const today = new Date();
+const nextMonth = new Date(today);
+nextMonth.setMonth(today.getMonth() + 1);
+
+formStartDate.valueAsDate = today;
+formEndDate.valueAsDate = nextMonth;
