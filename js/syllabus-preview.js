@@ -1,26 +1,12 @@
-// Import all of the json files for the app
-import courses from "../json/courses.json" with { type: "json" };
-import college_policies from "../json/college_policies.json" with { type: "json" };
-import important_dates from "../json/important_dates.json" with { type: "json" };
-import instructor_information from "../json/instructor_information.json" with { type: "json" };
-import section_info from "../json/section_info.json" with { type: "json" };
-
-// Fetch and respond to get the json files loaded
-fetch("./json/courses.json").then((courses) => courses.json());
-
-fetch("./json/college_policies.json").then((college_policies) =>
-  college_policies.json()
-);
-
-fetch("./json/important_dates.json").then((important_dates) =>
-  important_dates.json()
-);
-
-fetch("./json/instructor_information.json").then((instructor_information) =>
-  instructor_information.json()
-);
-
-fetch("./json/section_info.json").then((section_info) => section_info.json());
+// Fetch all JSON data files
+const [courses, college_policies, important_dates, instructor_information, section_info] =
+  await Promise.all([
+    fetch("./json/courses.json").then((r) => r.json()),
+    fetch("./json/college_policies.json").then((r) => r.json()),
+    fetch("./json/important_dates.json").then((r) => r.json()),
+    fetch("./json/instructor_information.json").then((r) => r.json()),
+    fetch("./json/section_info.json").then((r) => r.json()),
+  ]);
 
 //***********
 // GLOBAL VARIABLES SECTION

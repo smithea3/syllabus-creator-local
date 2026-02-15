@@ -6,7 +6,7 @@
  * https://www.anthropic.com/claude
  */
 
-import importantDates from "../json/important_dates.json" with { type: "json" };
+const importantDates = await fetch("../json/important_dates.json").then((r) => r.json());
 
 // Helper function to format the date as 'Day, mm/dd/yyyy'
 function formatDateWithDay(date) {

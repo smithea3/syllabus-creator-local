@@ -1,34 +1,10 @@
-// Import all of the json files for the app
-import courses from "../json/courses.json" with { type: "json" };
-import college_policies from "../json/college_policies.json" with { type: "json" };
-import important_dates from "../json/important_dates.json" with { type: "json" };
-import instructor_information from "../json/instructor_information.json" with { type: "json" };
-import section_info from "../json/section_info.json" with { type: "json" };
-
-// Fetch and respond to get the json files loaded
-fetch("./json/courses.json").then((courses) => courses.json());
-
-fetch("./json/college_policies.json").then((college_policies) =>
-  college_policies.json()
-);
-
-fetch("./json/important_dates.json").then((important_dates) =>
-  important_dates.json()
-);
-
-fetch("./json/instructor_information.json").then((instructor_information) =>
-  instructor_information.json()
-);
-
-fetch("./json/section_info.json").then((section_info) => section_info.json());
-
 function getListOfCourses(courses) {
     var courseList = "";
     var count = 1;
     for (const courseID in courses) {
         courseList += `<option value=${count}>${courseID}</option>`;
         count++;
-    }    
+    }
     document.getElementById("inputCourseList").innerHTML += courseList;
 }
 
@@ -38,9 +14,15 @@ function getListOfColleges(college_policies) {
     for (const collegeID in college_policies) {
         collegeList += `<option value=${count}>${collegeID}</option>`;
         count++;
-    }    
+    }
     document.getElementById("inputCollegeList").innerHTML += collegeList;
 }
+
+// Fetch JSON data and populate form dropdowns
+const [courses, college_policies] = await Promise.all([
+  fetch("./json/courses.json").then((r) => r.json()),
+  fetch("./json/college_policies.json").then((r) => r.json()),
+]);
 
 getListOfCourses(courses);
 getListOfColleges(college_policies);
