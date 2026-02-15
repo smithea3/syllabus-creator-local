@@ -96,6 +96,10 @@
 
               <div class="mb-3">
                 <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="includeAllHolidays">
+                  <label class="form-check-label" for="includeAllHolidays">Include all holidays/college closures</label>
+                </div>
+                <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="excludeHolidays">
                   <label class="form-check-label" for="excludeHolidays">Exclude holidays/college closures</label>
                 </div>
@@ -112,6 +116,10 @@
         <div class="card shadow-sm">
           <div class="card-header bg-light d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Generated Dates <span id="dateCount" class="badge bg-secondary d-none"></span></h5>
+            <div class="d-flex gap-2">
+            <button type="button" class="btn btn-sm btn-outline-primary" id="downloadDocxButton" disabled>
+              Download Word
+            </button>
             <button type="button" class="btn btn-sm btn-outline-secondary" id="copyDatesButton" disabled>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-clipboard me-1" id="copyIconClipboard" viewBox="0 0 16 16">
@@ -126,6 +134,7 @@
               </svg>
               <span id="copyButtonText">Copy Dates</span>
             </button>
+            </div>
           </div>
           <div class="card-body">
             <div id="listOfDates" class="list-group list-group-flush"></div>
@@ -158,6 +167,10 @@
       </div>
     </div>
   </footer>
+
+  <!-- docx + FileSaver for Word export -->
+  <script src="https://cdn.jsdelivr.net/npm/docx@9.5.1/dist/index.iife.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>
 
   <!-- Bootstrap 5 JS Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

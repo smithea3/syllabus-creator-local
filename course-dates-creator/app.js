@@ -6,7 +6,7 @@
  * https://www.anthropic.com/claude
  */
 
-import importantDates from "../json/important_dates.json" assert { type: "json" };
+import importantDates from "../json/important_dates.json" with { type: "json" };
 
 // Helper function to format the date as 'Day, mm/dd/yyyy'
 function formatDateWithDay(date) {
@@ -80,6 +80,31 @@ function getImportantDateInfo(dateKey) {
   return null;
 }
 
+// Get all holiday/closure dates within a date range across all semesters
+function getHolidayDatesInRange(startDateStr, endDateStr) {
+  const holidays = [];
+  for (const semester of Object.values(importantDates)) {
+    if (!semester.dates) continue;
+    for (const [dateKey, info] of Object.entries(semester.dates)) {
+      if (dateKey >= startDateStr && dateKey <= endDateStr) {
+        if (!info.hasClass || !info.collegeOpen) {
+          const parts = dateKey.split("-");
+          const date = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+          holidays.push({
+            formatted: formatDateWithDay(date),
+            dateKey: dateKey,
+            event: info.event,
+            hasClass: info.hasClass,
+            collegeOpen: info.collegeOpen,
+            isClosedOrHoliday: true,
+          });
+        }
+      }
+    }
+  }
+  return holidays;
+}
+
 // Show a Bootstrap inline alert
 function showAlert(message, type = "warning") {
   const container = document.getElementById("alertContainer");
@@ -118,7 +143,9 @@ const copyIconCheck = document.getElementById("copyIconCheck");
 const copyButtonText = document.getElementById("copyButtonText");
 const dateCountBadge = document.getElementById("dateCount");
 const clearButton = document.getElementById("clearButton");
+const downloadDocxButton = document.getElementById("downloadDocxButton");
 const excludeHolidaysCheckbox = document.getElementById("excludeHolidays");
+const includeAllHolidaysCheckbox = document.getElementById("includeAllHolidays");
 const dayCheckboxContainer = document.getElementById("dayCheckboxContainer");
 
 let generatedDates = [];
@@ -194,10 +221,25 @@ copyDatesButton.addEventListener("click", function () {
     });
 });
 
+// Make the two holiday checkboxes mutually exclusive
+includeAllHolidaysCheckbox.addEventListener("change", function () {
+  if (this.checked) {
+    excludeHolidaysCheckbox.checked = false;
+  }
+  if (generatedDates.length > 0) {
+    // Re-generate to add/remove holiday dates
+    formSubmitButton.click();
+  }
+});
+
 // Re-render when exclude holidays checkbox changes
 excludeHolidaysCheckbox.addEventListener("change", function () {
+  if (this.checked) {
+    includeAllHolidaysCheckbox.checked = false;
+  }
   if (generatedDates.length > 0) {
-    renderDates();
+    // Re-generate to add/remove holiday dates
+    formSubmitButton.click();
   }
 });
 
@@ -237,6 +279,18 @@ formSubmitButton.addEventListener("click", function () {
     };
   });
 
+  // If "Include all holidays" is checked, add holidays that fall on non-selected days
+  if (includeAllHolidaysCheckbox.checked) {
+    const existingKeys = new Set(generatedDates.map((d) => d.dateKey));
+    const holidays = getHolidayDatesInRange(formStartDate.value, formEndDate.value);
+    for (const h of holidays) {
+      if (!existingKeys.has(h.dateKey)) {
+        generatedDates.push(h);
+      }
+    }
+    generatedDates.sort((a, b) => a.dateKey.localeCompare(b.dateKey));
+  }
+
   renderDates();
 });
 
@@ -250,6 +304,7 @@ function renderDates() {
   listOfDatesElement.textContent = "";
 
   copyDatesButton.disabled = visibleDates.length === 0;
+  downloadDocxButton.disabled = visibleDates.length === 0;
 
   // Update date count badge
   if (visibleDates.length > 0) {
@@ -278,19 +333,7 @@ function renderDates() {
     }
 
     const dateText = document.createElement("div");
-
-    if (dateObj.isClosedOrHoliday) {
-      const struck = document.createElement("s");
-      struck.textContent = dateObj.formatted;
-      dateText.appendChild(struck);
-
-      const badge = document.createElement("span");
-      badge.className = "badge bg-warning text-dark ms-2";
-      badge.textContent = !dateObj.collegeOpen ? "College Closed" : "No Class";
-      dateText.appendChild(badge);
-    } else {
-      dateText.textContent = dateObj.formatted;
-    }
+    dateText.textContent = dateObj.formatted;
 
     item.appendChild(dateText);
 
@@ -319,6 +362,7 @@ clearButton.addEventListener("click", function () {
   formStartDate.readOnly = false;
   formEndDate.readOnly = false;
   excludeHolidaysCheckbox.checked = false;
+  includeAllHolidaysCheckbox.checked = false;
 
   // Uncheck all day checkboxes
   dayCheckboxContainer.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
@@ -330,6 +374,7 @@ clearButton.addEventListener("click", function () {
   generatedDates = [];
   listOfDatesElement.textContent = "";
   copyDatesButton.disabled = true;
+  downloadDocxButton.disabled = true;
   dateCountBadge.classList.add("d-none");
 });
 
@@ -340,3 +385,79 @@ nextMonth.setMonth(today.getMonth() + 1);
 
 formStartDate.valueAsDate = today;
 formEndDate.valueAsDate = nextMonth;
+
+// Generate and download a Word document from the current dates
+function generateDocx() {
+  const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } = window.docx;
+
+  const excludeHolidays = excludeHolidaysCheckbox.checked;
+  const visibleDates = excludeHolidays
+    ? generatedDates.filter((d) => !d.isClosedOrHoliday)
+    : generatedDates;
+
+  const children = [
+    new Paragraph({
+      text: "Course Schedule",
+      heading: HeadingLevel.HEADING_2,
+    }),
+  ];
+
+  for (const dateObj of visibleDates) {
+    const dateRunOptions = {
+      text: dateObj.formatted,
+      bold: true,
+      font: "Segoe UI",
+      size: 22, // 11pt in half-points
+    };
+
+    if (dateObj.isClosedOrHoliday) {
+      dateRunOptions.highlight = "yellow";
+    }
+
+    children.push(
+      new Paragraph({
+        children: [new TextRun(dateRunOptions)],
+      })
+    );
+
+    if (dateObj.event) {
+      const eventRunOptions = {
+        text: dateObj.event,
+        font: "Segoe UI",
+        size: 22,
+      };
+
+      if (dateObj.isClosedOrHoliday) {
+        eventRunOptions.highlight = "yellow";
+      }
+
+      children.push(
+        new Paragraph({
+          children: [new TextRun(eventRunOptions)],
+          bullet: { level: 0 },
+        })
+      );
+    }
+  }
+
+  const doc = new Document({
+    styles: {
+      default: {
+        document: {
+          run: {
+            font: "Segoe UI",
+            size: 22,
+          },
+        },
+      },
+    },
+    sections: [{ children }],
+  });
+
+  Packer.toBlob(doc).then((blob) => {
+    saveAs(blob, "course-schedule.docx");
+  });
+}
+
+// Wire up the download button
+downloadDocxButton.addEventListener("click", generateDocx);

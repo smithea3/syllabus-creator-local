@@ -1,9 +1,9 @@
 // Import all of the json files for the app
-import courses from "../json/courses.json" assert { type: "json" };
-import college_policies from "../json/college_policies.json" assert { type: "json" };
-import important_dates from "../json/important_dates.json" assert { type: "json" };
-import instructor_information from "../json/instructor_information.json" assert { type: "json" };
-import section_info from "../json/section_info.json" assert { type: "json" };
+import courses from "../json/courses.json" with { type: "json" };
+import college_policies from "../json/college_policies.json" with { type: "json" };
+import important_dates from "../json/important_dates.json" with { type: "json" };
+import instructor_information from "../json/instructor_information.json" with { type: "json" };
+import section_info from "../json/section_info.json" with { type: "json" };
 
 // Fetch and respond to get the json files loaded
 fetch("./json/courses.json").then((courses) => courses.json());
